@@ -16,33 +16,41 @@
 
       <h2>CHOOSE YOUR ARENA</h2>
       <div class="arenas">
-        <button class="arena selected" data-arena="dojo">
+        <button class="arena selected" data-arena="dojo" aria-pressed="true">
           <span class="preview dojo"></span>THE DOJO
         </button>
-        <button class="arena" data-arena="rooftop">
+        <button class="arena" data-arena="rooftop" aria-pressed="false">
           <span class="preview rooftop"></span>NEON ROOFTOP
         </button>
-        <button class="arena" data-arena="desert">
+        <button class="arena" data-arena="desert" aria-pressed="false">
           <span class="preview desert"></span>DUSTY DESERT
         </button>
-        <button class="arena" data-arena="ice">
+        <button class="arena" data-arena="ice" aria-pressed="false">
           <span class="preview ice"></span>FROST RING
         </button>
       </div>
 
       <h2>CHOOSE YOUR GAME MODE</h2>
       <div class="modes">
-        <button class="mode selected" data-mode="classic">
+        <button class="mode selected" data-mode="classic" aria-pressed="true">
+          <span class="mode-check" aria-hidden="true">✓</span>
           <strong>CLASSIC</strong>
           <span>Jump, dodge, and punch.</span>
         </button>
-        <button class="mode" data-mode="items">
+        <button class="mode" data-mode="items" aria-pressed="false">
+          <span class="mode-check" aria-hidden="true">✓</span>
           <strong>ITEMS</strong>
           <span>Pick up temporary powers.</span>
         </button>
-        <button class="mode" data-mode="random">
+        <button class="mode" data-mode="random" aria-pressed="false">
+          <span class="mode-check" aria-hidden="true">✓</span>
           <strong>RANDOM POWERS</strong>
-          <span>Unique powers all round.</span>
+          <span>Each player gets a different power.</span>
+        </button>
+        <button class="mode disaster-mode" data-mode="disasters" aria-pressed="false">
+          <span class="mode-check" aria-hidden="true">✓</span>
+          <strong>DISASTERS</strong>
+          <span>Dodge hazards and hide under platforms!</span>
         </button>
       </div>
 
@@ -52,14 +60,14 @@
           <p><kbd>A</kbd><kbd>D</kbd> Move</p>
           <p><kbd>W</kbd> Jump</p>
           <p><kbd>F</kbd> Attack</p>
-          <p><kbd>SPACE</kbd> Use power / Jetpack</p>
+          <p><kbd>SPACE</kbd> Jetpack thrust (if equipped)</p>
         </div>
         <div>
           <strong class="blue">PLAYER 2</strong>
           <p><kbd>←</kbd><kbd>→</kbd> Move</p>
           <p><kbd>↑</kbd> Jump</p>
           <p><kbd>/</kbd> Attack</p>
-          <p><kbd>ENTER</kbd> Use power / Jetpack</p>
+          <p><kbd>ENTER</kbd> Jetpack thrust (if equipped)</p>
         </div>
       </div>
 
