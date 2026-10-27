@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StickBrawl - 1v1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <section id="home" class="screen home">
+      <p class="eyebrow">LOCAL MULTIPLAYER • 2 PLAYERS</p>
+      <h1>STICK<span>BRAWL</span></h1>
+      <p class="subtitle">Two fighters. One arena. Fight!</p>
+
+      <h2>CHOOSE YOUR ARENA</h2>
+      <div class="arenas">
+        <button class="arena selected" data-arena="dojo">
+          <span class="preview dojo"></span>
+          THE DOJO
+        </button>
+        <button class="arena" data-arena="rooftop">
+          <span class="preview rooftop"></span>
+          NEON ROOFTOP
+        </button>
+        <button class="arena" data-arena="desert">
+          <span class="preview desert"></span>
+          DUSTY DESERT
+        </button>
+        <button class="arena" data-arena="ice">
+          <span class="preview ice"></span>
+          FROST RING
+        </button>
+      </div>
+
+      <div class="controls">
+        <div>
+          <strong class="orange">PLAYER 1</strong>
+          <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</p>
+          <p><kbd>F</kbd> Punch</p>
+        </div>
+        <div>
+          <strong class="blue">PLAYER 2</strong>
+          <p><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> Move</p>
+          <p><kbd>/</kbd> Punch</p>
+        </div>
+      </div>
+
+      <button id="startBtn" class="primary">START FIGHT →</button>
+    </section>
+
+    <section id="game" class="screen game hidden">
+      <header class="topbar">
+        <button id="backBtn" class="secondary">← HOME</button>
+        <strong id="arenaName">THE DOJO</strong>
+        <span>ROUND 1</span>
+      </header>
+
+      <div class="health-row">
+        <div>
+          <div class="health-label">
+            <strong class="orange">PLAYER 1</strong>
+            <span id="p1Text">100 / 100</span>
+          </div>
+          <div class="health-track">
+            <div id="p1Health" class="health-fill orange-fill"></div>
+          </div>
+        </div>
+        <strong class="vs">VS</strong>
+        <div>
+          <div class="health-label">
+            <span id="p2Text">100 / 100</span>
+            <strong class="blue">PLAYER 2</strong>
+          </div>
+          <div class="health-track">
+            <div id="p2Health" class="health-fill blue-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="arenaCanvas" width="1000" height="560"></canvas>
+        <div id="countdown" class="overlay hidden">3</div>
+        <div id="result" class="overlay hidden">
+          <h2 id="winner">PLAYER 1 WINS!</h2>
+          <p>Fight over!</p>
+          <button id="rematchBtn" class="primary">REMATCH ↻</button>
+          <button id="homeBtn" class="secondary">CHOOSE ANOTHER ARENA</button>
+        </div>
+      </div>
+
+      <footer>
+        <span>WASD + F: PLAYER 1</span>
+        <span>ARROWS + /: PLAYER 2</span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
