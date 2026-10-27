@@ -10,40 +10,56 @@
 <body>
   <main class="shell">
     <section id="home" class="screen home">
-      <p class="eyebrow">LOCAL MULTIPLAYER • 2 PLAYERS</p>
+      <p class="eyebrow">LOCAL MULTIPLAYER • TWO PLAYERS</p>
       <h1>STICK<span>BRAWL</span></h1>
       <p class="subtitle">Two fighters. One arena. Fight!</p>
 
       <h2>CHOOSE YOUR ARENA</h2>
       <div class="arenas">
         <button class="arena selected" data-arena="dojo">
-          <span class="preview dojo"></span>
-          THE DOJO
+          <span class="preview dojo"></span>THE DOJO
         </button>
         <button class="arena" data-arena="rooftop">
-          <span class="preview rooftop"></span>
-          NEON ROOFTOP
+          <span class="preview rooftop"></span>NEON ROOFTOP
         </button>
         <button class="arena" data-arena="desert">
-          <span class="preview desert"></span>
-          DUSTY DESERT
+          <span class="preview desert"></span>DUSTY DESERT
         </button>
         <button class="arena" data-arena="ice">
-          <span class="preview ice"></span>
-          FROST RING
+          <span class="preview ice"></span>FROST RING
+        </button>
+      </div>
+
+      <h2>CHOOSE YOUR GAME MODE</h2>
+      <div class="modes">
+        <button class="mode selected" data-mode="classic">
+          <strong>CLASSIC</strong>
+          <span>Jump, dodge, and punch.</span>
+        </button>
+        <button class="mode" data-mode="items">
+          <strong>ITEMS</strong>
+          <span>Pick up temporary powers.</span>
+        </button>
+        <button class="mode" data-mode="random">
+          <strong>RANDOM POWERS</strong>
+          <span>Unique powers all round.</span>
         </button>
       </div>
 
       <div class="controls">
         <div>
           <strong class="orange">PLAYER 1</strong>
-          <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</p>
-          <p><kbd>F</kbd> Punch</p>
+          <p><kbd>A</kbd><kbd>D</kbd> Move</p>
+          <p><kbd>W</kbd> Jump</p>
+          <p><kbd>F</kbd> Attack</p>
+          <p><kbd>SPACE</kbd> Use power / Jetpack</p>
         </div>
         <div>
           <strong class="blue">PLAYER 2</strong>
-          <p><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> Move</p>
-          <p><kbd>/</kbd> Punch</p>
+          <p><kbd>←</kbd><kbd>→</kbd> Move</p>
+          <p><kbd>↑</kbd> Jump</p>
+          <p><kbd>/</kbd> Attack</p>
+          <p><kbd>ENTER</kbd> Use power / Jetpack</p>
         </div>
       </div>
 
@@ -54,7 +70,7 @@
       <header class="topbar">
         <button id="backBtn" class="secondary">← HOME</button>
         <strong id="arenaName">THE DOJO</strong>
-        <span>ROUND 1</span>
+        <span id="modeName">CLASSIC</span>
       </header>
 
       <div class="health-row">
@@ -66,6 +82,7 @@
           <div class="health-track">
             <div id="p1Health" class="health-fill orange-fill"></div>
           </div>
+          <div id="p1Power" class="power-label"></div>
         </div>
         <strong class="vs">VS</strong>
         <div>
@@ -76,6 +93,7 @@
           <div class="health-track">
             <div id="p2Health" class="health-fill blue-fill"></div>
           </div>
+          <div id="p2Power" class="power-label right"></div>
         </div>
       </div>
 
@@ -84,15 +102,15 @@
         <div id="countdown" class="overlay hidden">3</div>
         <div id="result" class="overlay hidden">
           <h2 id="winner">PLAYER 1 WINS!</h2>
-          <p>Fight over!</p>
+          <p id="resultMessage">Fight over!</p>
           <button id="rematchBtn" class="primary">REMATCH ↻</button>
-          <button id="homeBtn" class="secondary">CHOOSE ANOTHER ARENA</button>
+          <button id="homeBtn" class="secondary">CHOOSE ANOTHER MODE</button>
         </div>
       </div>
 
       <footer>
-        <span>WASD + F: PLAYER 1</span>
-        <span>ARROWS + /: PLAYER 2</span>
+        <span>A / D MOVE · W JUMP · F ATTACK</span>
+        <span>← / → MOVE · ↑ JUMP · / ATTACK</span>
       </footer>
     </section>
   </main>
