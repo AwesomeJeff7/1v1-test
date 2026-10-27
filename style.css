@@ -5,7 +5,6 @@
 
 :root {
   --bg: #101318;
-  --panel: #1b2029;
   --orange: #ff654d;
   --blue: #54b7ff;
   --text: #f4f6fa;
@@ -46,7 +45,7 @@ button {
 
 .home {
   text-align: center;
-  padding: 45px;
+  padding: 38px;
 }
 
 .eyebrow {
@@ -68,19 +67,20 @@ h1 span {
 
 .subtitle {
   color: #aab3c0;
-  margin-bottom: 38px;
+  margin-bottom: 30px;
 }
 
 h2 {
-  font-size: 19px;
+  font-size: 17px;
   letter-spacing: 2px;
+  margin-top: 28px;
 }
 
 .arenas {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin: 22px 0 28px;
+  margin: 18px 0 26px;
 }
 
 .arena {
@@ -93,33 +93,22 @@ h2 {
   font-size: 12px;
 }
 
-.arena:hover {
+.arena:hover,
+.mode:hover {
   border-color: #8994a5;
 }
 
-.arena.selected {
+.arena.selected,
+.mode.selected {
   border-color: var(--orange);
   background: #302428;
 }
 
 .preview {
   display: block;
-  height: 95px;
+  height: 85px;
   margin-bottom: 12px;
   border-radius: 5px;
-  position: relative;
-  overflow: hidden;
-}
-
-.preview::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 25%;
-  background: #15182066;
-  border-top: 3px solid #ffffff44;
 }
 
 .dojo {
@@ -138,12 +127,43 @@ h2 {
   background: linear-gradient(#b8edfa, #5d9ec7);
 }
 
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0 25px;
+}
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+  text-align: left;
+  background: #222833;
+  border: 2px solid #343c49;
+  border-radius: 10px;
+  color: white;
+  padding: 17px;
+}
+
+.mode strong {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.mode span {
+  color: #aeb8c7;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   text-align: left;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 
 .controls > div {
@@ -159,6 +179,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 5px;
+  flex-wrap: wrap;
 }
 
 .orange {
@@ -180,7 +201,7 @@ kbd {
   border: 1px solid #505969;
   border-radius: 4px;
   color: white;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
 }
 
@@ -205,7 +226,7 @@ kbd {
   border-radius: 7px;
   color: white;
   padding: 10px 12px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
 }
 
@@ -217,6 +238,7 @@ kbd {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   padding-bottom: 18px;
   border-bottom: 1px solid #343b48;
   font-size: 12px;
@@ -235,6 +257,7 @@ kbd {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
   font-size: 11px;
   margin-bottom: 9px;
 }
@@ -263,6 +286,18 @@ kbd {
 .vs {
   text-align: center;
   color: #7d899b;
+}
+
+.power-label {
+  min-height: 18px;
+  padding-top: 6px;
+  color: #ffd977;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.power-label.right {
+  text-align: right;
 }
 
 .canvas-wrap {
@@ -296,6 +331,7 @@ canvas {
 .overlay h2 {
   font-size: clamp(25px, 5vw, 48px);
   color: var(--orange);
+  margin: 0;
 }
 
 .overlay p {
@@ -306,6 +342,7 @@ canvas {
 footer {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   padding-top: 16px;
   font-size: 10px;
   font-weight: bold;
@@ -318,11 +355,11 @@ footer {
   }
 
   .home {
-    padding: 25px 12px;
+    padding: 20px 10px;
   }
 
   .screen {
-    padding: 15px;
+    padding: 13px;
   }
 
   .arenas {
@@ -330,7 +367,11 @@ footer {
   }
 
   .preview {
-    height: 75px;
+    height: 65px;
+  }
+
+  .modes {
+    grid-template-columns: 1fr;
   }
 
   .controls {
