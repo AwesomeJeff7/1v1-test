@@ -1,45 +1,41 @@
 
-// ==========================================
-// MINING EMPIRE - MAIN GAME
-// ==========================================
-
 const ores = [
-    {name:"Stone", emoji:"🪨", rarity:"Common", chance:4000, value:1, color:"#a5a5a5"},
-    {name:"Coal", emoji:"⚫", rarity:"Common", chance:2500, value:3, color:"#777777"},
-    {name:"Copper", emoji:"🟤", rarity:"Common", chance:1500, value:6, color:"#c47b48"},
-    {name:"Iron", emoji:"🔩", rarity:"Uncommon", chance:1000, value:12, color:"#b2b8c5"},
-    {name:"Silver", emoji:"🥈", rarity:"Uncommon", chance:500, value:25, color:"#c8d5e8"},
-    {name:"Gold", emoji:"🥇", rarity:"Rare", chance:300, value:60, color:"#ffcf50"},
-    {name:"Ruby", emoji:"♦️", rarity:"Rare", chance:150, value:150, color:"#ff4b64"},
-    {name:"Sapphire", emoji:"💎", rarity:"Epic", chance:80, value:400, color:"#4899ff"},
-    {name:"Emerald", emoji:"💚", rarity:"Epic", chance:40, value:900, color:"#42df91"},
-    {name:"Amethyst", emoji:"🔮", rarity:"Legendary", chance:20, value:2500, color:"#b46aff"},
-    {name:"Obsidian", emoji:"⬛", rarity:"Legendary", chance:10, value:7000, color:"#a18bd3"},
-    {name:"Mythril", emoji:"✨", rarity:"Mythical", chance:5, value:20000, color:"#67e8e8"},
-    {name:"Uranium", emoji:"☢️", rarity:"Mythical", chance:3, value:50000, color:"#a5ff48"},
-    {name:"Voidium", emoji:"🌌", rarity:"Divine", chance:1, value:150000, color:"#a65bff"},
-    {name:"Celestialum", emoji:"🌟", rarity:"Divine", chance:0.5, value:500000, color:"#fff0a1"},
-    {name:"Infinitum", emoji:"♾️", rarity:"Secret", chance:0.1, value:2000000, color:"#ff6df1"}
+    {name:"Stone", emoji:"🪨", rarity:"Common", weight:4000, value:1, color:"#aaaaaa"},
+    {name:"Coal", emoji:"⚫", rarity:"Common", weight:2500, value:3, color:"#777777"},
+    {name:"Copper", emoji:"🟤", rarity:"Common", weight:1500, value:6, color:"#c47b48"},
+    {name:"Iron", emoji:"🔩", rarity:"Uncommon", weight:1000, value:12, color:"#b2b8c5"},
+    {name:"Silver", emoji:"🥈", rarity:"Uncommon", weight:500, value:25, color:"#c8d5e8"},
+    {name:"Gold", emoji:"🥇", rarity:"Rare", weight:300, value:60, color:"#ffcf50"},
+    {name:"Ruby", emoji:"♦️", rarity:"Rare", weight:150, value:150, color:"#ff4b64"},
+    {name:"Sapphire", emoji:"💎", rarity:"Epic", weight:80, value:400, color:"#4899ff"},
+    {name:"Emerald", emoji:"💚", rarity:"Epic", weight:40, value:900, color:"#42df91"},
+    {name:"Amethyst", emoji:"🔮", rarity:"Legendary", weight:20, value:2500, color:"#b46aff"},
+    {name:"Obsidian", emoji:"⬛", rarity:"Legendary", weight:10, value:7000, color:"#a18bd3"},
+    {name:"Mythril", emoji:"✨", rarity:"Mythical", weight:5, value:20000, color:"#67e8e8"},
+    {name:"Uranium", emoji:"☢️", rarity:"Mythical", weight:3, value:50000, color:"#a5ff48"},
+    {name:"Voidium", emoji:"🌌", rarity:"Divine", weight:1, value:150000, color:"#a65bff"},
+    {name:"Celestium", emoji:"🌟", rarity:"Divine", weight:0.5, value:500000, color:"#fff0a1"},
+    {name:"Infinityte", emoji:"♾️", rarity:"Secret", weight:0.1, value:2000000, color:"#ff6df1"}
 ];
 
 const zones = [
     {
         name:"Grasslands Mine",
-        description:"A peaceful mine filled with basic minerals.",
+        description:"Your mining adventure begins!",
         emoji:"🌳",
         cost:0,
         ores:[0,1,2,3,4,5]
     },
     {
         name:"Stone Caverns",
-        description:"Deeper underground, more valuable ores await.",
+        description:"Deeper underground, better minerals await.",
         emoji:"⛰️",
         cost:5000,
         ores:[1,2,3,4,5,6,7]
     },
     {
         name:"Crystal Caves",
-        description:"A beautiful cave full of precious crystals.",
+        description:"A cave filled with precious crystals.",
         emoji:"💎",
         cost:50000,
         ores:[3,4,5,6,7,8,9]
@@ -53,44 +49,54 @@ const zones = [
     },
     {
         name:"Magma Caverns",
-        description:"Extremely valuable minerals hide in the heat.",
+        description:"Extremely valuable minerals hide here.",
         emoji:"🌋",
         cost:5000000,
         ores:[6,7,8,9,10,11,12]
     },
     {
         name:"Ancient Ruins",
-        description:"Forgotten treasures from an ancient civilization.",
+        description:"Discover forgotten minerals.",
         emoji:"🏛️",
         cost:50000000,
         ores:[8,9,10,11,12,13,14]
     },
     {
         name:"Shadow Abyss",
-        description:"A mysterious place filled with strange minerals.",
+        description:"The rarest minerals are hidden here.",
         emoji:"🌑",
         cost:500000000,
         ores:[9,10,11,12,13,14,15]
     }
 ];
 
-// ==========================================
-// GAME DATA
-// ==========================================
-
-let game = {
-    money: 0,
-    power: 1,
-    blocks: 0,
-    zone: 0,
-    unlockedZones: [0],
-    inventory: {},
-    discovered: [],
-    multiplier: 1,
-    rebirths: 0
+const defaultGame = {
+    money:0,
+    power:1,
+    blocks:0,
+    zone:0,
+    unlockedZones:[0],
+    inventory:{},
+    discovered:[],
+    multiplier:1,
+    rebirths:0
 };
 
+let game = {...defaultGame};
+let recentDrops = [];
 let toastTimer;
+
+// ======================================
+// SAVE AND LOAD
+// ======================================
+
+function saveGame() {
+    try {
+        localStorage.setItem("miningEmpireSave", JSON.stringify(game));
+    } catch (error) {
+        console.error("Could not save game:", error);
+    }
+}
 
 function loadGame() {
     try {
@@ -100,55 +106,49 @@ function loadGame() {
             const data = JSON.parse(saved);
 
             game = {
-                ...game,
+                ...defaultGame,
                 ...data
             };
 
-            game.unlockedZones = Array.isArray(game.unlockedZones)
-                ? game.unlockedZones : [0];
+            game.inventory = data.inventory || {};
+            game.discovered = Array.isArray(data.discovered) ? data.discovered : [];
+            game.unlockedZones = Array.isArray(data.unlockedZones) ? data.unlockedZones : [0];
 
-            game.inventory = game.inventory || {};
-            game.discovered = Array.isArray(game.discovered)
-                ? game.discovered : [];
+            game.money = Math.max(0, Number(game.money) || 0);
+            game.power = Math.max(1, Math.floor(Number(game.power) || 1));
+            game.blocks = Math.max(0, Number(game.blocks) || 0);
+            game.multiplier = Math.max(1, Number(game.multiplier) || 1);
+            game.rebirths = Math.max(0, Math.floor(Number(game.rebirths) || 0));
 
             game.unlockedZones = [...new Set([0, ...game.unlockedZones])]
                 .filter(i => Number.isInteger(i) && i >= 0 && i < zones.length);
 
-            game.discovered = game.discovered.filter(i =>
-                Number.isInteger(i) && i >= 0 && i < ores.length
-            );
+            game.discovered = [...new Set(game.discovered)]
+                .filter(i => Number.isInteger(i) && i >= 0 && i < ores.length);
 
-            game.zone = game.unlockedZones.includes(game.zone)
-                ? game.zone : 0;
-
-            game.money = Math.max(0, Number(game.money) || 0);
-            game.power = Math.max(1, Number(game.power) || 1);
-            game.blocks = Math.max(0, Number(game.blocks) || 0);
-            game.multiplier = Math.max(1, Number(game.multiplier) || 1);
-            game.rebirths = Math.max(0, Number(game.rebirths) || 0);
+            if (!game.unlockedZones.includes(game.zone)) {
+                game.zone = 0;
+            }
         }
     } catch (error) {
-        console.error("Save could not be loaded:", error);
+        console.error("Save loading failed:", error);
+        game = {...defaultGame};
     }
 
     updateUI();
 }
 
-function saveGame() {
-    localStorage.setItem("miningEmpireSave", JSON.stringify(game));
-}
+// ======================================
+// NUMBER FORMATTING
+// ======================================
 
-// ==========================================
-// FORMATTING
-// ==========================================
+function formatNumber(number) {
+    if (number >= 1e12) return (number / 1e12).toFixed(2) + "T";
+    if (number >= 1e9) return (number / 1e9).toFixed(2) + "B";
+    if (number >= 1e6) return (number / 1e6).toFixed(2) + "M";
+    if (number >= 1e3) return (number / 1e3).toFixed(2) + "K";
 
-function formatNumber(num) {
-    if (num >= 1e12) return (num / 1e12).toFixed(2) + "T";
-    if (num >= 1e9) return (num / 1e9).toFixed(2) + "B";
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
-    if (num >= 1e3) return (num / 1e3).toFixed(2) + "K";
-
-    return Math.floor(num).toLocaleString();
+    return Math.floor(number).toLocaleString();
 }
 
 function upgradeCost() {
@@ -159,23 +159,48 @@ function rebirthCost() {
     return 1000000 * Math.pow(10, game.rebirths);
 }
 
-// ==========================================
+// ======================================
+// TAB MENU
+// ======================================
+
+function switchTab(tabName) {
+    document.querySelectorAll(".tab").forEach(button => {
+        button.classList.toggle(
+            "active",
+            button.dataset.tab === tabName
+        );
+    });
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.toggle(
+            "active",
+            page.id === tabName
+        );
+    });
+}
+
+document.querySelectorAll(".tab").forEach(button => {
+    button.addEventListener("click", () => {
+        switchTab(button.dataset.tab);
+    });
+});
+
+// ======================================
 // RANDOM ORE SYSTEM
-// ==========================================
+// ======================================
 
 function getRandomOre() {
-    const currentZone = zones[game.zone];
-
-    const availableOres = currentZone.ores.map(index => ores[index]);
+    const availableOres = zones[game.zone].ores.map(index => ores[index]);
 
     const totalWeight = availableOres.reduce(
-        (total, ore) => total + ore.chance, 0
+        (total, ore) => total + ore.weight,
+        0
     );
 
     let roll = Math.random() * totalWeight;
 
-    for (let ore of availableOres) {
-        roll -= ore.chance;
+    for (const ore of availableOres) {
+        roll -= ore.weight;
 
         if (roll <= 0) {
             return ore;
@@ -185,34 +210,34 @@ function getRandomOre() {
     return availableOres[0];
 }
 
-// ==========================================
+// ======================================
 // MINING
-// ==========================================
+// ======================================
 
 function mine() {
-    const amount = Math.min(5, Math.max(1, Math.floor(game.power)));
+    const amount = Math.min(game.power, 10);
 
     game.blocks += amount;
 
-    let lastOre = null;
-    let discoveries = [];
+    let found = [];
+    let newDiscoveries = [];
 
     for (let i = 0; i < amount; i++) {
         const ore = getRandomOre();
-        const oreIndex = ores.indexOf(ore);
+        const index = ores.indexOf(ore);
 
         game.inventory[ore.name] =
             (game.inventory[ore.name] || 0) + 1;
 
-        if (!game.discovered.includes(oreIndex)) {
-            game.discovered.push(oreIndex);
-            discoveries.push(ore);
-        }
+        found.push(ore);
 
-        lastOre = ore;
+        if (!game.discovered.includes(index)) {
+            game.discovered.push(index);
+            newDiscoveries.push(ore);
+        }
     }
 
-    // Chance for bonus ore drops
+    // Bonus drop RNG
     let bonus = 0;
 
     if (Math.random() < 0.05) {
@@ -221,59 +246,69 @@ function mine() {
         bonus = 1;
     }
 
-    if (bonus > 0) {
-        for (let i = 0; i < bonus; i++) {
-            const ore = getRandomOre();
-            const oreIndex = ores.indexOf(ore);
+    for (let i = 0; i < bonus; i++) {
+        const ore = getRandomOre();
+        const index = ores.indexOf(ore);
 
-            game.inventory[ore.name] =
-                (game.inventory[ore.name] || 0) + 1;
+        game.inventory[ore.name] =
+            (game.inventory[ore.name] || 0) + 1;
 
-            if (!game.discovered.includes(oreIndex)) {
-                game.discovered.push(oreIndex);
-                discoveries.push(ore);
-            }
+        found.push(ore);
 
-            lastOre = ore;
+        if (!game.discovered.includes(index)) {
+            game.discovered.push(index);
+            newDiscoveries.push(ore);
         }
     }
 
-    animateBlock();
+    const bestOre = found.reduce(
+        (best, ore) => ore.value > best.value ? ore : best,
+        found[0]
+    );
 
-    if (discoveries.length > 0) {
-        showToast("NEW DISCOVERY: " + discoveries[0].name + "!");
+    animateBlock(bestOre);
+
+    if (newDiscoveries.length > 0) {
+        showToast("NEW ORE DISCOVERED: " + newDiscoveries[0].name + "!");
     }
 
-    showDrop(lastOre, bonus);
+    showDrop(bestOre, found.length, bonus);
+
+    recentDrops.unshift(...found.map(ore => ore));
+
+    recentDrops = recentDrops.slice(0, 8);
 
     updateUI();
     saveGame();
 }
 
-function animateBlock() {
+function animateBlock(ore) {
     const block = document.getElementById("mineBlock");
+
+    block.textContent = ore.emoji;
+    block.style.borderColor = ore.color;
 
     block.classList.remove("mining");
     void block.offsetWidth;
     block.classList.add("mining");
 }
 
-function showDrop(ore, bonus) {
-    const notification = document.getElementById("dropNotification");
-    const blockEmoji = document.getElementById("blockEmoji");
+function showDrop(ore, amount, bonus) {
+    document.getElementById("mineText").textContent =
+        "Found " + amount + " block(s)!";
 
-    blockEmoji.textContent = ore.emoji;
+    const notification = document.getElementById("dropNotification");
 
     notification.textContent =
-        `Found ${ore.emoji} ${ore.name}!` +
-        (bonus > 0 ? ` +${bonus} BONUS ORES!` : "");
+        ore.emoji + " Best find: " + ore.name +
+        (bonus > 0 ? " | BONUS DROP!" : "");
 
     notification.style.color = ore.color;
 }
 
-// ==========================================
-// INVENTORY
-// ==========================================
+// ======================================
+// INVENTORY AND SELLING
+// ======================================
 
 function inventoryValue() {
     let total = 0;
@@ -287,7 +322,8 @@ function inventoryValue() {
 
 function inventoryCount() {
     return Object.values(game.inventory).reduce(
-        (sum, amount) => sum + amount, 0
+        (sum, amount) => sum + amount,
+        0
     );
 }
 
@@ -295,7 +331,7 @@ function sellAll() {
     const value = inventoryValue();
 
     if (value <= 0) {
-        showToast("You don't have any ores to sell!");
+        showToast("You have no ores to sell!");
         return;
     }
 
@@ -304,15 +340,15 @@ function sellAll() {
     game.money += earnings;
     game.inventory = {};
 
-    showToast("Sold everything for $" + formatNumber(earnings));
+    showToast("Sold ores for $" + formatNumber(earnings));
 
     updateUI();
     saveGame();
 }
 
-// ==========================================
+// ======================================
 // PICKAXE UPGRADES
-// ==========================================
+// ======================================
 
 function buyUpgrade() {
     const cost = upgradeCost();
@@ -325,61 +361,24 @@ function buyUpgrade() {
     game.money -= cost;
     game.power++;
 
-    showToast("Pickaxe upgraded! Power is now " + game.power);
+    showToast("Pickaxe upgraded! Power: " + game.power);
 
     updateUI();
     saveGame();
 }
 
-// ==========================================
-// MINING ZONES
-// ==========================================
-
-function renderZones() {
-    const container = document.getElementById("zones");
-    container.innerHTML = "";
-
-    zones.forEach((zone, index) => {
-        const unlocked = game.unlockedZones.includes(index);
-        const active = game.zone === index;
-
-        const card = document.createElement("button");
-
-        card.className =
-            "zone-card" +
-            (active ? " active" : "") +
-            (!unlocked ? " locked" : "");
-
-        card.innerHTML = `
-            ${zone.emoji} ${zone.name}
-            <small>
-                ${unlocked ? (active ? "Currently mining" : "Unlocked") :
-                "🔒 $" + formatNumber(zone.cost)}
-            </small>
-        `;
-
-        card.disabled = !unlocked && game.money < zone.cost;
-
-        card.addEventListener("click", () => {
-            if (unlocked) {
-                game.zone = index;
-                showToast("Entered " + zone.name);
-            } else {
-                buyZone(index);
-            }
-
-            updateUI();
-            saveGame();
-        });
-
-        container.appendChild(card);
-    });
-}
+// ======================================
+// AREAS
+// ======================================
 
 function buyZone(index) {
     const zone = zones[index];
 
     if (game.unlockedZones.includes(index)) {
+        game.zone = index;
+        showToast("Entered " + zone.name);
+        updateUI();
+        saveGame();
         return;
     }
 
@@ -392,14 +391,49 @@ function buyZone(index) {
     game.unlockedZones.push(index);
     game.zone = index;
 
-    showToast("Unlocked " + zone.name + "!");
+    showToast("NEW AREA UNLOCKED: " + zone.name + "!");
+
+    updateUI();
+    saveGame();
 }
 
-// ==========================================
-// ORE COLLECTION
-// ==========================================
+function renderZones() {
+    const container = document.getElementById("zones");
+    container.innerHTML = "";
 
-function renderOreIndex() {
+    zones.forEach((zone, index) => {
+        const unlocked = game.unlockedZones.includes(index);
+        const active = game.zone === index;
+
+        const button = document.createElement("button");
+
+        button.className =
+            "zone-card" +
+            (active ? " active" : "");
+
+        button.innerHTML = `
+            <h3>${zone.emoji} ${zone.name}</h3>
+            <small>${zone.description}</small>
+            <small>
+                ${active ? "CURRENT AREA" :
+                unlocked ? "UNLOCKED - ENTER" :
+                "🔒 $" + formatNumber(zone.cost)}
+            </small>
+        `;
+
+        button.disabled = !unlocked && game.money < zone.cost;
+
+        button.addEventListener("click", () => buyZone(index));
+
+        container.appendChild(button);
+    });
+}
+
+// ======================================
+// ORE COLLECTION
+// ======================================
+
+function renderCollection() {
     const container = document.getElementById("oreIndex");
     container.innerHTML = "";
 
@@ -408,8 +442,8 @@ function renderOreIndex() {
 
         const card = document.createElement("div");
 
-        card.className = "ore-card" +
-            (discovered ? "" : " undiscovered");
+        card.className =
+            "ore-card" + (discovered ? "" : " undiscovered");
 
         card.innerHTML = `
             <div class="ore-icon">
@@ -430,31 +464,51 @@ function renderOreIndex() {
         container.appendChild(card);
     });
 
-    const discoveredCount = game.discovered.length;
-    const percentage = discoveredCount / ores.length * 100;
+    const count = game.discovered.length;
 
     document.getElementById("collectionText").textContent =
-        `${discoveredCount} / ${ores.length} Discovered`;
+        `${count} / ${ores.length} Discovered`;
 
     document.getElementById("collectionProgress").style.width =
-        percentage + "%";
+        (count / ores.length * 100) + "%";
 }
 
-// ==========================================
+function renderRecentDrops() {
+    const container = document.getElementById("recentDrops");
+
+    if (recentDrops.length === 0) {
+        container.textContent = "No discoveries yet.";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    recentDrops.forEach(ore => {
+        const item = document.createElement("div");
+        item.className = "recent-item";
+        item.textContent = ore.emoji + " " + ore.name;
+        item.style.borderBottom = "2px solid " + ore.color;
+
+        container.appendChild(item);
+    });
+}
+
+// ======================================
 // REBIRTH
-// ==========================================
+// ======================================
 
 function rebirth() {
     const cost = rebirthCost();
 
     if (game.money < cost) {
-        showToast("You need $" + formatNumber(cost) + " to rebirth!");
+        showToast("You need $" + formatNumber(cost) + "!");
         return;
     }
 
     const confirmed = confirm(
-        "Rebirth will reset your money, pickaxe, zones, and inventory. " +
-        "Your discoveries and permanent multiplier will remain. Continue?"
+        "Are you sure you want to rebirth? " +
+        "Your money, upgrades, areas and inventory will reset. " +
+        "Your ore discoveries and multiplier will remain."
     );
 
     if (!confirmed) return;
@@ -469,15 +523,15 @@ function rebirth() {
     game.rebirths++;
     game.multiplier *= 2;
 
-    showToast("REBIRTH! Permanent multiplier doubled!");
+    showToast("REBIRTH SUCCESSFUL! Money multiplier doubled!");
 
     updateUI();
     saveGame();
 }
 
-// ==========================================
+// ======================================
 // NOTIFICATIONS
-// ==========================================
+// ======================================
 
 function showToast(message) {
     const toast = document.getElementById("toast");
@@ -492,13 +546,11 @@ function showToast(message) {
     }, 2500);
 }
 
-// ==========================================
-// UPDATE GAME UI
-// ==========================================
+// ======================================
+// UPDATE EVERYTHING
+// ======================================
 
 function updateUI() {
-    const zone = zones[game.zone];
-
     document.getElementById("money").textContent =
         formatNumber(game.money);
 
@@ -509,10 +561,10 @@ function updateUI() {
         formatNumber(game.blocks);
 
     document.getElementById("zoneName").textContent =
-        zone.name;
+        zones[game.zone].name;
 
     document.getElementById("zoneDescription").textContent =
-        zone.description;
+        zones[game.zone].description;
 
     document.getElementById("zoneLevel").textContent =
         "ZONE " + (game.zone + 1);
@@ -532,6 +584,9 @@ function updateUI() {
     document.getElementById("multiplier").textContent =
         "x" + formatNumber(game.multiplier);
 
+    document.getElementById("rebirthCount").textContent =
+        game.rebirths;
+
     document.getElementById("rebirthRequirement").textContent =
         "$" + formatNumber(rebirthCost());
 
@@ -544,31 +599,32 @@ function updateUI() {
     document.getElementById("sellButton").disabled =
         inventoryCount() === 0;
 
+    document.getElementById("rebirthStatus").textContent =
+        game.money >= rebirthCost()
+        ? "You can rebirth now!"
+        : "You need $" + formatNumber(rebirthCost() - game.money) + " more.";
+
     renderZones();
-    renderOreIndex();
+    renderCollection();
+    renderRecentDrops();
 }
 
-// ==========================================
-// BUTTON CONNECTIONS
-// ==========================================
+// ======================================
+// BUTTONS
+// ======================================
 
 document.getElementById("mineButton").addEventListener("click", mine);
-
 document.getElementById("mineBlock").addEventListener("click", mine);
-
 document.getElementById("sellButton").addEventListener("click", sellAll);
-
 document.getElementById("upgradeButton").addEventListener("click", buyUpgrade);
-
 document.getElementById("rebirthButton").addEventListener("click", rebirth);
 
-// ==========================================
-// AUTO SAVE
-// ==========================================
+// ======================================
+// AUTOSAVE
+// ======================================
 
 setInterval(saveGame, 5000);
 
 window.addEventListener("beforeunload", saveGame);
 
-// START GAME
 loadGame();
