@@ -8,156 +8,143 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-    <div class="logo">⛏ MINING EMPIRE</div>
-    <div class="stats">
-        <div>💰 $<span id="money">0</span></div>
-        <div>⛏ <span id="power">1</span> Power</div>
-        <div>💎 <span id="blocks">0</span> Mined</div>
-    </div>
-</header>
-
-<nav class="tabs">
-    <button class="tab active" data-tab="mine">⛏ Mine</button>
-    <button class="tab" data-tab="upgrades">⚒ Upgrades</button>
-    <button class="tab" data-tab="areas">🌎 Areas</button>
-    <button class="tab" data-tab="collection">💎 Collection</button>
-    <button class="tab" data-tab="rebirth">🔄 Rebirth</button>
-</nav>
-
-<main>
-
-    <section id="mine" class="page active">
-        <div class="panel">
-            <div class="zone-header">
-                <div>
-                    <h1 id="zoneName">Grasslands Mine</h1>
-                    <p id="zoneDescription">Start your mining adventure!</p>
-                </div>
-                <span id="zoneLevel" class="zone-level">ZONE 1</span>
-            </div>
-
-            <div class="mine-area">
-                <div id="mineBlock" class="mine-block">🪨</div>
-                <h3 id="mineText">Ready to mine?</h3>
-                <button id="mineButton" class="primary-button">MINE BLOCK</button>
-                <div id="dropNotification">Discover your first ore!</div>
-            </div>
-
-            <div class="inventory-bar">
-                <div>
-                    <small>Inventory Value</small>
-                    <strong id="inventoryValue">$0</strong>
-                </div>
-                <div>
-                    <small>Ores Collected</small>
-                    <strong id="oreCount">0</strong>
-                </div>
-                <button id="sellButton" class="sell-button">SELL ALL</button>
-            </div>
-
-            <div class="panel inner-panel">
-                <h3>Recent Discoveries</h3>
-                <div id="recentDrops">No discoveries yet.</div>
-            </div>
+    <header class="topbar">
+        <div>
+            <h1>⛏️ Mining Empire</h1>
+            <p class="subtitle">Dig deep. Discover rare ores. Build your empire.</p>
         </div>
-    </section>
+        <div class="money-display">
+            <span>Money</span>
+            <strong id="money">$0</strong>
+        </div>
+    </header>
 
-    <section id="upgrades" class="page">
-        <div class="panel">
-            <h1>⚒ Pickaxe Upgrades</h1>
-            <p class="muted">Become a more powerful miner.</p>
+    <nav class="tabs">
+        <button class="tab-button active" data-tab="mine">Mine</button>
+        <button class="tab-button" data-tab="upgrades">Upgrades</button>
+        <button class="tab-button" data-tab="areas">Areas</button>
+        <button class="tab-button" data-tab="collection">Collection</button>
+        <button class="tab-button" data-tab="rebirth">Rebirth</button>
+    </nav>
 
-            <div class="upgrade-card">
-                <div>
-                    <h2>⛏ Pickaxe Power</h2>
-                    <p>Mine more blocks with every click.</p>
+    <main>
+        <section class="page active" id="mine">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Pickaxe Power</span>
+                    <strong id="power">1</strong>
                 </div>
-                <div class="upgrade-stat">
-                    <strong id="upgradePower">1</strong>
-                    <small>Current Power</small>
+                <div class="stat-card">
+                    <span>Blocks Mined</span>
+                    <strong id="blocks">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Current Area</span>
+                    <strong id="zoneName">Grasslands Mine</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Money Multiplier</span>
+                    <strong id="multiplier">x1</strong>
                 </div>
             </div>
 
-            <div class="upgrade-cost">
-                Next Upgrade: <strong id="upgradeCost">$50</strong>
+            <div class="panel mine-panel">
+                <h2 id="zoneDescription">A peaceful mine filled with common ores.</h2>
+                <p class="muted" id="zoneLevel">Area 1</p>
+
+                <button id="mineBlock" class="mine-block">
+                    <span class="block-icon">🪨</span>
+                    <span>CLICK TO MINE</span>
+                </button>
+
+                <button id="mineButton" class="primary-button">Mine</button>
+
+                <div class="cooldown-track">
+                    <div id="cooldownFill" class="cooldown-fill"></div>
+                </div>
+                <p id="cooldownText" class="muted">Ready to mine!</p>
+
+                <div id="dropNotification" class="drop-notification"></div>
+                <p id="mineText" class="muted">Mine blocks to discover ores.</p>
             </div>
 
-            <button id="upgradeButton" class="primary-button full">
-                UPGRADE PICKAXE
-            </button>
-        </div>
-    </section>
+            <div class="panel">
+                <h2>Inventory</h2>
+                <div class="inventory-stats">
+                    <div>
+                        <span>Inventory Value</span>
+                        <strong id="inventoryValue">$0</strong>
+                    </div>
+                    <div>
+                        <span>Ores Collected</span>
+                        <strong id="oreCount">0</strong>
+                    </div>
+                </div>
+                <div id="recentDrops" class="recent-drops"></div>
+                <button id="sellButton" class="primary-button">Sell All Ores</button>
+            </div>
 
-    <section id="areas" class="page">
-        <div class="panel">
-            <h1>🌎 Mining Areas</h1>
-            <p class="muted">Travel deeper underground to discover new minerals.</p>
-            <div id="zones" class="zones"></div>
-        </div>
-    </section>
+            <div class="panel best-ore-panel">
+                <h2>🏆 Best Ore Ever Found</h2>
+                <div id="bestOre">No rare ores discovered yet!</div>
+            </div>
+        </section>
 
-    <section id="collection" class="page">
-        <div class="panel">
-            <h1>💎 Ore Collection</h1>
-            <p class="muted">Collect every mineral in the game.</p>
+        <section class="page" id="upgrades">
+            <h2>Upgrades</h2>
+            <div class="upgrade-grid">
+                <div class="panel upgrade-card">
+                    <h3>⛏️ Pickaxe Power</h3>
+                    <p>Mine more blocks with each click.</p>
+                    <p>Current Level: <strong id="upgradePower">1</strong></p>
+                    <p>Cost: <strong id="upgradeCost">$50</strong></p>
+                    <button id="upgradeButton" class="primary-button">Upgrade Power</button>
+                </div>
 
-            <div class="collection-progress">
-                <div id="collectionText">0 / 16 Discovered</div>
+                <div class="panel upgrade-card">
+                    <h3>⚡ Mining Speed</h3>
+                    <p>Reduce the cooldown between mining clicks.</p>
+                    <p>Speed Level: <strong id="speedLevel">1</strong></p>
+                    <p>Cooldown: <strong id="currentCooldown">1.2s</strong></p>
+                    <p>Cost: <strong id="speedCost">$100</strong></p>
+                    <button id="speedButton" class="primary-button">Upgrade Speed</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="areas">
+            <h2>Mining Areas</h2>
+            <p class="muted">Unlock new areas to discover more valuable ores.</p>
+            <div id="zones" class="zone-grid"></div>
+        </section>
+
+        <section class="page" id="collection">
+            <div class="panel">
+                <h2>Ore Collection</h2>
+                <p id="collectionText">0 / 0 ores discovered</p>
                 <div class="progress-track">
                     <div id="collectionProgress" class="progress-fill"></div>
                 </div>
+                <div id="oreIndex" class="ore-grid"></div>
             </div>
+        </section>
 
-            <div id="oreIndex" class="ore-index"></div>
-        </div>
-    </section>
-
-    <section id="rebirth" class="page">
-        <div class="panel rebirth-panel">
-            <div class="rebirth-icon">🔄</div>
-            <h1>Rebirth</h1>
-            <p class="muted">Start your mining journey again with permanent bonuses.</p>
-
-            <div class="rebirth-info">
-                <div>
-                    <small>Current Rebirths</small>
-                    <strong id="rebirthCount">0</strong>
+        <section class="page" id="rebirth">
+            <div class="panel rebirth-panel">
+                <h2>♻️ Rebirth</h2>
+                <p>Restart your mining progress in exchange for a permanent money multiplier.</p>
+                <div class="rebirth-stats">
+                    <p>Rebirths: <strong id="rebirthCount">0</strong></p>
+                    <p>Required Money: <strong id="rebirthRequirement">$1,000,000</strong></p>
+                    <p id="rebirthStatus">Reach the required money to rebirth.</p>
                 </div>
-                <div>
-                    <small>Money Multiplier</small>
-                    <strong id="multiplier">x1</strong>
-                </div>
-                <div>
-                    <small>Next Requirement</small>
-                    <strong id="rebirthRequirement">$1M</strong>
-                </div>
+                <button id="rebirthButton" class="primary-button">Rebirth</button>
             </div>
+        </section>
+    </main>
 
-            <div class="rebirth-description">
-                <h3>What resets?</h3>
-                <p>• Money</p>
-                <p>• Pickaxe upgrades</p>
-                <p>• Unlocked areas</p>
-                <p>• Ore inventory</p>
-                <h3>What you keep:</h3>
-                <p>• Ore discoveries</p>
-                <p>• Rebirth count</p>
-                <p>• Permanent money multiplier</p>
-            </div>
+    <div id="toast" class="toast"></div>
 
-            <button id="rebirthButton" class="rebirth-button full">
-                REBIRTH
-            </button>
-            <p id="rebirthStatus" class="muted"></p>
-        </div>
-    </section>
-
-</main>
-
-<div id="toast" class="toast"></div>
-
-<script src="game.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
