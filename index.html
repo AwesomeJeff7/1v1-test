@@ -2,127 +2,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StickBrawl - 1v1</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining Empire</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="shell">
-    <section id="home" class="screen home">
-      <p class="eyebrow">LOCAL MULTIPLAYER • TWO PLAYERS</p>
-      <h1>STICK<span>BRAWL</span></h1>
-      <p class="subtitle">Two fighters. One arena. Fight!</p>
-
-      <h2>CHOOSE YOUR ARENA</h2>
-      <div class="arenas">
-        <button class="arena selected" data-arena="dojo" aria-pressed="true">
-          <span class="preview dojo"></span>THE DOJO
-        </button>
-        <button class="arena" data-arena="rooftop" aria-pressed="false">
-          <span class="preview rooftop"></span>NEON ROOFTOP
-        </button>
-        <button class="arena" data-arena="desert" aria-pressed="false">
-          <span class="preview desert"></span>DUSTY DESERT
-        </button>
-        <button class="arena" data-arena="ice" aria-pressed="false">
-          <span class="preview ice"></span>FROST RING
-        </button>
-      </div>
-
-      <h2>CHOOSE YOUR GAME MODE</h2>
-      <div class="modes">
-        <button class="mode selected" data-mode="classic" aria-pressed="true">
-          <span class="mode-check" aria-hidden="true">✓</span>
-          <strong>CLASSIC</strong>
-          <span>Jump, dodge, and punch.</span>
-        </button>
-        <button class="mode" data-mode="items" aria-pressed="false">
-          <span class="mode-check" aria-hidden="true">✓</span>
-          <strong>ITEMS</strong>
-          <span>Pick up temporary powers.</span>
-        </button>
-        <button class="mode" data-mode="random" aria-pressed="false">
-          <span class="mode-check" aria-hidden="true">✓</span>
-          <strong>RANDOM POWERS</strong>
-          <span>Each player gets a different power.</span>
-        </button>
-        <button class="mode disaster-mode" data-mode="disasters" aria-pressed="false">
-          <span class="mode-check" aria-hidden="true">✓</span>
-          <strong>DISASTERS</strong>
-          <span>Dodge hazards and hide under platforms!</span>
-        </button>
-      </div>
-
-      <div class="controls">
-        <div>
-          <strong class="orange">PLAYER 1</strong>
-          <p><kbd>A</kbd><kbd>D</kbd> Move</p>
-          <p><kbd>W</kbd> Jump</p>
-          <p><kbd>F</kbd> Attack</p>
-          <p><kbd>SPACE</kbd> Jetpack thrust (if equipped)</p>
+    <header>
+        <div class="logo">⛏ MINING EMPIRE</div>
+        <div class="stats">
+            <div class="stat">💰 <span id="money">0</span></div>
+            <div class="stat">⛏ <span id="power">1</span> Power</div>
+            <div class="stat">💎 <span id="blocks">0</span> Mined</div>
         </div>
-        <div>
-          <strong class="blue">PLAYER 2</strong>
-          <p><kbd>←</kbd><kbd>→</kbd> Move</p>
-          <p><kbd>↑</kbd> Jump</p>
-          <p><kbd>/</kbd> Attack</p>
-          <p><kbd>ENTER</kbd> Jetpack thrust (if equipped)</p>
-        </div>
-      </div>
+    </header>
 
-      <button id="startBtn" class="primary">START FIGHT →</button>
-    </section>
+    <main>
+        <section class="mine-section">
+            <div class="zone-header">
+                <div>
+                    <h1 id="zoneName">Grasslands Mine</h1>
+                    <p id="zoneDescription">Your mining adventure begins here.</p>
+                </div>
+                <span class="zone-level" id="zoneLevel">ZONE 1</span>
+            </div>
 
-    <section id="game" class="screen game hidden">
-      <header class="topbar">
-        <button id="backBtn" class="secondary">← HOME</button>
-        <strong id="arenaName">THE DOJO</strong>
-        <span id="modeName">CLASSIC</span>
-      </header>
+            <div class="mine-area">
+                <div class="mine-glow"></div>
+                <div id="mineBlock" class="mine-block">
+                    <span id="blockEmoji">🪨</span>
+                </div>
+                <div class="mine-text" id="mineText">Click to mine!</div>
+                <button class="mine-button" id="mineButton">
+                    MINE BLOCK
+                </button>
+                <div id="dropNotification" class="drop-notification">
+                    Start mining!
+                </div>
+            </div>
 
-      <div class="health-row">
-        <div>
-          <div class="health-label">
-            <strong class="orange">PLAYER 1</strong>
-            <span id="p1Text">100 / 100</span>
-          </div>
-          <div class="health-track">
-            <div id="p1Health" class="health-fill orange-fill"></div>
-          </div>
-          <div id="p1Power" class="power-label"></div>
-        </div>
-        <strong class="vs">VS</strong>
-        <div>
-          <div class="health-label">
-            <span id="p2Text">100 / 100</span>
-            <strong class="blue">PLAYER 2</strong>
-          </div>
-          <div class="health-track">
-            <div id="p2Health" class="health-fill blue-fill"></div>
-          </div>
-          <div id="p2Power" class="power-label right"></div>
-        </div>
-      </div>
+            <div class="inventory-bar">
+                <div>
+                    <span>Inventory Value</span>
+                    <strong id="inventoryValue">$0</strong>
+                </div>
+                <div>
+                    <span>Ores Collected</span>
+                    <strong id="oreCount">0</strong>
+                </div>
+                <button id="sellButton">SELL ALL</button>
+            </div>
 
-      <div class="canvas-wrap">
-        <canvas id="arenaCanvas" width="1000" height="560"></canvas>
-        <div id="countdown" class="overlay hidden">3</div>
-        <div id="result" class="overlay hidden">
-          <h2 id="winner">PLAYER 1 WINS!</h2>
-          <p id="resultMessage">Fight over!</p>
-          <button id="rematchBtn" class="primary">REMATCH ↻</button>
-          <button id="homeBtn" class="secondary">CHOOSE ANOTHER MODE</button>
-        </div>
-      </div>
+            <div class="panel">
+                <h2>🌎 Mining Zones</h2>
+                <div id="zones" class="zones"></div>
+            </div>
+        </section>
 
-      <footer>
-        <span>A / D MOVE · W JUMP · F ATTACK</span>
-        <span>← / → MOVE · ↑ JUMP · / ATTACK</span>
-      </footer>
-    </section>
-  </main>
+        <aside>
+            <div class="panel">
+                <h2>⚒ Pickaxe Upgrades</h2>
+                <p class="muted">Increase your mining power.</p>
+                <div class="upgrade-info">
+                    <div>Current Power</div>
+                    <strong id="upgradePower">1</strong>
+                </div>
+                <div class="upgrade-info">
+                    <div>Next Upgrade</div>
+                    <strong id="upgradeCost">$50</strong>
+                </div>
+                <button id="upgradeButton" class="wide-button">
+                    UPGRADE PICKAXE
+                </button>
+            </div>
 
-  <script src="game.js"></script>
+            <div class="panel">
+                <h2>💎 Ore Collection</h2>
+                <p class="muted">Discover every ore in the game.</p>
+                <div class="collection-progress">
+                    <div id="collectionText">0 / 0 Discovered</div>
+                    <div class="progress-track">
+                        <div id="collectionProgress" class="progress-fill"></div>
+                    </div>
+                </div>
+                <div id="oreIndex" class="ore-index"></div>
+            </div>
+
+            <div class="panel rebirth-panel">
+                <h2>🔄 Rebirth</h2>
+                <p class="muted">Reset your progress for permanent bonuses.</p>
+                <div>Current Multiplier: <strong id="multiplier">x1</strong></div>
+                <div>Rebirth Requirement: <strong id="rebirthRequirement">$1M</strong></div>
+                <button id="rebirthButton" class="wide-button rebirth-button">
+                    REBIRTH
+                </button>
+            </div>
+        </aside>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="game.js"></script>
 </body>
 </html>
