@@ -8,100 +8,156 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">⛏ MINING EMPIRE</div>
-        <div class="stats">
-            <div class="stat">💰 <span id="money">0</span></div>
-            <div class="stat">⛏ <span id="power">1</span> Power</div>
-            <div class="stat">💎 <span id="blocks">0</span> Mined</div>
-        </div>
-    </header>
 
-    <main>
-        <section class="mine-section">
+<header>
+    <div class="logo">⛏ MINING EMPIRE</div>
+    <div class="stats">
+        <div>💰 $<span id="money">0</span></div>
+        <div>⛏ <span id="power">1</span> Power</div>
+        <div>💎 <span id="blocks">0</span> Mined</div>
+    </div>
+</header>
+
+<nav class="tabs">
+    <button class="tab active" data-tab="mine">⛏ Mine</button>
+    <button class="tab" data-tab="upgrades">⚒ Upgrades</button>
+    <button class="tab" data-tab="areas">🌎 Areas</button>
+    <button class="tab" data-tab="collection">💎 Collection</button>
+    <button class="tab" data-tab="rebirth">🔄 Rebirth</button>
+</nav>
+
+<main>
+
+    <section id="mine" class="page active">
+        <div class="panel">
             <div class="zone-header">
                 <div>
                     <h1 id="zoneName">Grasslands Mine</h1>
-                    <p id="zoneDescription">Your mining adventure begins here.</p>
+                    <p id="zoneDescription">Start your mining adventure!</p>
                 </div>
-                <span class="zone-level" id="zoneLevel">ZONE 1</span>
+                <span id="zoneLevel" class="zone-level">ZONE 1</span>
             </div>
 
             <div class="mine-area">
-                <div class="mine-glow"></div>
-                <div id="mineBlock" class="mine-block">
-                    <span id="blockEmoji">🪨</span>
-                </div>
-                <div class="mine-text" id="mineText">Click to mine!</div>
-                <button class="mine-button" id="mineButton">
-                    MINE BLOCK
-                </button>
-                <div id="dropNotification" class="drop-notification">
-                    Start mining!
-                </div>
+                <div id="mineBlock" class="mine-block">🪨</div>
+                <h3 id="mineText">Ready to mine?</h3>
+                <button id="mineButton" class="primary-button">MINE BLOCK</button>
+                <div id="dropNotification">Discover your first ore!</div>
             </div>
 
             <div class="inventory-bar">
                 <div>
-                    <span>Inventory Value</span>
+                    <small>Inventory Value</small>
                     <strong id="inventoryValue">$0</strong>
                 </div>
                 <div>
-                    <span>Ores Collected</span>
+                    <small>Ores Collected</small>
                     <strong id="oreCount">0</strong>
                 </div>
-                <button id="sellButton">SELL ALL</button>
+                <button id="sellButton" class="sell-button">SELL ALL</button>
             </div>
 
-            <div class="panel">
-                <h2>🌎 Mining Zones</h2>
-                <div id="zones" class="zones"></div>
+            <div class="panel inner-panel">
+                <h3>Recent Discoveries</h3>
+                <div id="recentDrops">No discoveries yet.</div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <aside>
-            <div class="panel">
-                <h2>⚒ Pickaxe Upgrades</h2>
-                <p class="muted">Increase your mining power.</p>
-                <div class="upgrade-info">
-                    <div>Current Power</div>
+    <section id="upgrades" class="page">
+        <div class="panel">
+            <h1>⚒ Pickaxe Upgrades</h1>
+            <p class="muted">Become a more powerful miner.</p>
+
+            <div class="upgrade-card">
+                <div>
+                    <h2>⛏ Pickaxe Power</h2>
+                    <p>Mine more blocks with every click.</p>
+                </div>
+                <div class="upgrade-stat">
                     <strong id="upgradePower">1</strong>
+                    <small>Current Power</small>
                 </div>
-                <div class="upgrade-info">
-                    <div>Next Upgrade</div>
-                    <strong id="upgradeCost">$50</strong>
-                </div>
-                <button id="upgradeButton" class="wide-button">
-                    UPGRADE PICKAXE
-                </button>
             </div>
 
-            <div class="panel">
-                <h2>💎 Ore Collection</h2>
-                <p class="muted">Discover every ore in the game.</p>
-                <div class="collection-progress">
-                    <div id="collectionText">0 / 0 Discovered</div>
-                    <div class="progress-track">
-                        <div id="collectionProgress" class="progress-fill"></div>
-                    </div>
+            <div class="upgrade-cost">
+                Next Upgrade: <strong id="upgradeCost">$50</strong>
+            </div>
+
+            <button id="upgradeButton" class="primary-button full">
+                UPGRADE PICKAXE
+            </button>
+        </div>
+    </section>
+
+    <section id="areas" class="page">
+        <div class="panel">
+            <h1>🌎 Mining Areas</h1>
+            <p class="muted">Travel deeper underground to discover new minerals.</p>
+            <div id="zones" class="zones"></div>
+        </div>
+    </section>
+
+    <section id="collection" class="page">
+        <div class="panel">
+            <h1>💎 Ore Collection</h1>
+            <p class="muted">Collect every mineral in the game.</p>
+
+            <div class="collection-progress">
+                <div id="collectionText">0 / 16 Discovered</div>
+                <div class="progress-track">
+                    <div id="collectionProgress" class="progress-fill"></div>
                 </div>
-                <div id="oreIndex" class="ore-index"></div>
             </div>
 
-            <div class="panel rebirth-panel">
-                <h2>🔄 Rebirth</h2>
-                <p class="muted">Reset your progress for permanent bonuses.</p>
-                <div>Current Multiplier: <strong id="multiplier">x1</strong></div>
-                <div>Rebirth Requirement: <strong id="rebirthRequirement">$1M</strong></div>
-                <button id="rebirthButton" class="wide-button rebirth-button">
-                    REBIRTH
-                </button>
+            <div id="oreIndex" class="ore-index"></div>
+        </div>
+    </section>
+
+    <section id="rebirth" class="page">
+        <div class="panel rebirth-panel">
+            <div class="rebirth-icon">🔄</div>
+            <h1>Rebirth</h1>
+            <p class="muted">Start your mining journey again with permanent bonuses.</p>
+
+            <div class="rebirth-info">
+                <div>
+                    <small>Current Rebirths</small>
+                    <strong id="rebirthCount">0</strong>
+                </div>
+                <div>
+                    <small>Money Multiplier</small>
+                    <strong id="multiplier">x1</strong>
+                </div>
+                <div>
+                    <small>Next Requirement</small>
+                    <strong id="rebirthRequirement">$1M</strong>
+                </div>
             </div>
-        </aside>
-    </main>
 
-    <div id="toast" class="toast"></div>
+            <div class="rebirth-description">
+                <h3>What resets?</h3>
+                <p>• Money</p>
+                <p>• Pickaxe upgrades</p>
+                <p>• Unlocked areas</p>
+                <p>• Ore inventory</p>
+                <h3>What you keep:</h3>
+                <p>• Ore discoveries</p>
+                <p>• Rebirth count</p>
+                <p>• Permanent money multiplier</p>
+            </div>
 
-    <script src="game.js"></script>
+            <button id="rebirthButton" class="rebirth-button full">
+                REBIRTH
+            </button>
+            <p id="rebirthStatus" class="muted"></p>
+        </div>
+    </section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="game.js"></script>
 </body>
 </html>
