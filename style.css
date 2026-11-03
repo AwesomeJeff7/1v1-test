@@ -15,6 +15,11 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
 .topbar {
     padding: 22px 6%;
     background: #182536;
@@ -164,11 +169,6 @@ main {
     transform: scale(.96);
 }
 
-.mine-block:disabled {
-    opacity: .45;
-    cursor: not-allowed;
-}
-
 .block-icon {
     font-size: 65px;
 }
@@ -184,11 +184,6 @@ main {
 
 .primary-button:hover:not(:disabled) {
     background: #36a0d0;
-}
-
-.primary-button:disabled {
-    opacity: .4;
-    cursor: not-allowed;
 }
 
 .cooldown-track, .progress-track {
@@ -274,6 +269,7 @@ main {
     color: #aebed1;
     font-size: 12px;
     margin-top: 7px;
+    line-height: 1.7;
 }
 
 .upgrade-grid, .zone-grid {
@@ -291,6 +287,10 @@ main {
     font-size: 14px;
 }
 
+.upgrade-card .primary-button {
+    width: 100%;
+}
+
 .zone-card {
     background: #1a2839;
     border: 1px solid #304258;
@@ -299,7 +299,7 @@ main {
 }
 
 .zone-card.locked {
-    opacity: .65;
+    opacity: .8;
 }
 
 .zone-card.selected {
