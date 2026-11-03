@@ -14,17 +14,17 @@ const ores = [
     { name: "Uranium", icon: "☢️", value: 30000, weight: 3 },
     { name: "Voidium", icon: "🌌", value: 100000, weight: 1 },
     { name: "Celestium", icon: "✨", value: 500000, weight: 0.1 },
-    { name: "Infinityte", icon: "♾️", value: 2500000, weight: 0.00002 },
-    { name: "Airium", icon: "💨", value: 10000000, weight: 0.000008 },
-    { name: "Eternium", icon: "⏳", value: 25000000, weight: 0.000004 },
-    { name: "Chronium", icon: "⌛", value: 50000000, weight: 0.000002 },
+    { name: "Infinityte", icon: "♾️", value: 2500000, weight: 0.02 },
+    { name: "Airium", icon: "💨", value: 10000000, weight: 0.008 },
+    { name: "Eternium", icon: "⏳", value: 25000000, weight: 0.001 },
+    { name: "Chronium", icon: "⌛", value: 50000000, weight: 0.0006 },
     { name: "Godlyte", icon: "☀️", value: 100000000, weight: 0.000001 },
     { name: "Omnium", icon: "🔮", value: 250000000, weight: 0.0000004 },
     { name: "Dimensionite", icon: "🌀", value: 500000000, weight: 0.0000002 },
     { name: "Celestialium", icon: "🌠", value: 1000000000, weight: 0.0000001 },
     { name: "Nullium", icon: "⚫", value: 2500000000, weight: 0.00000004 },
-    { name: "Transcendium", icon: "💠", value: 5000000000, weight: 0.00000002 },
-    { name: "Omnithium", icon: "👑", value: 10000000000, weight: 0.00000001 }
+    { name: "Transcendium", icon: "💠", value: 5000000000, weight: 0.00000003 },
+    { name: "Omnithium", icon: "👑", value: 10000000000, weight: 0.00000002 }
 ];
 
 const zones = [
