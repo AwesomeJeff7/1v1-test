@@ -1,4 +1,3 @@
-
 const ores = [
     { name: "Stone", icon: "🪨", value: 1, weight: 4000 },
     { name: "Coal", icon: "⚫", value: 3, weight: 2500 },
@@ -14,8 +13,18 @@ const ores = [
     { name: "Mythril", icon: "🌟", value: 12000, weight: 5 },
     { name: "Uranium", icon: "☢️", value: 30000, weight: 3 },
     { name: "Voidium", icon: "🌌", value: 100000, weight: 1 },
-    { name: "Celestium", icon: "✨", value: 500000, weight: 0.5 },
-    { name: "Infinityte", icon: "♾️", value: 2500000, weight: 0.1 }
+    { name: "Celestium", icon: "✨", value: 500000, weight: 0.1 },
+    { name: "Infinityte", icon: "♾️", value: 2500000, weight: 0.00002 },
+    { name: "Airium", icon: "💨", value: 10000000, weight: 0.000008 },
+    { name: "Eternium", icon: "⏳", value: 25000000, weight: 0.000004 },
+    { name: "Chronium", icon: "⌛", value: 50000000, weight: 0.000002 },
+    { name: "Godlyte", icon: "☀️", value: 100000000, weight: 0.000001 },
+    { name: "Omnium", icon: "🔮", value: 250000000, weight: 0.0000004 },
+    { name: "Dimensionite", icon: "🌀", value: 500000000, weight: 0.0000002 },
+    { name: "Celestialium", icon: "🌠", value: 1000000000, weight: 0.0000001 },
+    { name: "Nullium", icon: "⚫", value: 2500000000, weight: 0.00000004 },
+    { name: "Transcendium", icon: "💠", value: 5000000000, weight: 0.00000002 },
+    { name: "Omnithium", icon: "👑", value: 10000000000, weight: 0.00000001 }
 ];
 
 const zones = [
@@ -28,38 +37,38 @@ const zones = [
     {
         name: "Stone Caverns",
         description: "Dark caverns containing valuable minerals.",
-        cost: 500,
-        ores: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        cost: 5000,
+        ores: [0,1, 2, 3, 4, 5, 6, 7, 8, 9]
     },
     {
         name: "Crystal Caves",
         description: "Glowing caves filled with precious crystals.",
-        cost: 5000,
-        ores: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        cost: 50000,
+        ores: [2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     },
     {
         name: "Frozen Depths",
         description: "A frozen underground world hiding strange minerals.",
-        cost: 25000,
+        cost: 250000,
         ores: [5, 6, 7, 8, 9, 10, 11, 12, 13]
     },
     {
         name: "Magma Caverns",
         description: "Volcanic tunnels filled with rare treasures.",
-        cost: 150000,
-        ores: [7, 8, 9, 10, 11, 12, 13, 14]
+        cost: 1500000,
+        ores: [6,7, 8, 9, 10, 11, 12, 13, 14]
     },
     {
         name: "Ancient Ruins",
         description: "An ancient civilization hiding powerful minerals.",
-        cost: 1000000,
-        ores: [9, 10, 11, 12, 13, 14, 15]
+        cost: 10000000,
+        ores: [8,9, 10, 11, 12, 13, 14, 15]
     },
     {
         name: "Shadow Abyss",
         description: "The deepest mine, containing the rarest discoveries.",
-        cost: 10000000,
-        ores: [11, 12, 13, 14, 15]
+        cost: 100000000,
+        ores: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     }
 ];
 
@@ -123,7 +132,17 @@ function cooldownTime() {
 }
 
 function rebirthRequirement() {
-    return 1000000 * Math.pow(10, game.rebirths);
+    const costs = [
+        1000000,
+        50000000,
+        200000000,
+        3000000000,
+        50000000000,
+        750000000000,
+        11000000000000
+    ];
+
+    return costs[game.rebirths] ?? costs[costs.length - 1] * Math.pow(15, game.rebirths - costs.length + 1);
 }
 
 function rebirthMultiplier() {
@@ -139,7 +158,7 @@ function doubleChance() {
 }
 
 function getLuckMultiplier(oreIndex) {
-    return 1 + game.luck * oreIndex * 0.08;
+    return 1 + Math.min(game.luck, 20) * oreIndex * 0.08;
 }
 
 function saveGame() {
@@ -166,6 +185,8 @@ function loadGame() {
         };
 
         game.zone = Math.max(0, Math.min(game.zone, zones.length - 1));
+        game.luck = Math.max(0, Math.min(20, Number(game.luck) || 0));
+
         game.unlockedZones = [...new Set([0, ...game.unlockedZones])]
             .filter(index => Number.isInteger(index) && index >= 0 && index < zones.length);
 
@@ -346,24 +367,30 @@ function buyUpgrade(type) {
             cost = powerCost();
             levelName = "Pickaxe Power";
             break;
+
         case "speed":
             cost = speedCost();
             levelName = "Mining Speed";
             maxed = cooldownTime() <= 0.2;
             break;
+
         case "luck":
             cost = luckCost();
             levelName = "Ore Luck";
+            maxed = game.luck >= 20;
             break;
+
         case "sell":
             cost = sellUpgradeCost();
             levelName = "Ore Value";
             break;
+
         case "double":
             cost = doubleCost();
             levelName = "Double Drops";
             maxed = doubleChance() >= 0.5;
             break;
+
         default:
             return;
     }
@@ -382,7 +409,7 @@ function buyUpgrade(type) {
 
     if (type === "power") game.power++;
     if (type === "speed") game.speed++;
-    if (type === "luck") game.luck++;
+    if (type === "luck") game.luck = Math.min(20, game.luck + 1);
     if (type === "sell") game.sellLevel++;
     if (type === "double") game.doubleLevel++;
 
@@ -639,8 +666,8 @@ function renderUpgrades() {
 
     $("luckLevel").textContent = game.luck;
     $("luckBonus").textContent = "+" + (game.luck * 10) + "%";
-    $("luckCost").textContent = moneyText(luckCost());
-    $("luckButton").disabled = game.money < luckCost();
+    $("luckCost").textContent = game.luck >= 20 ? "MAXED" : moneyText(luckCost());
+    $("luckButton").disabled = game.money < luckCost() || game.luck >= 20;
 
     $("sellLevel").textContent = game.sellLevel;
     $("sellBonus").textContent = "+" + (game.sellLevel * 25) + "%";
