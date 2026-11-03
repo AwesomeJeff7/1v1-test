@@ -85,29 +85,59 @@
             </div>
 
             <div class="panel best-ore-panel">
-                <h2>🏆 Best Ore Ever Found</h2>
-                <div id="bestOre">No rare ores discovered yet!</div>
+                <h2>Best Ore Ever Found</h2>
+                <div id="bestOre">No ores discovered yet!</div>
             </div>
         </section>
 
         <section class="page" id="upgrades">
             <h2>Upgrades</h2>
+            <p class="muted">Improve your mining equipment and earn more money.</p>
+
             <div class="upgrade-grid">
                 <div class="panel upgrade-card">
-                    <h3>⛏️ Pickaxe Power</h3>
+                    <h3>Pickaxe Power</h3>
                     <p>Mine more blocks with each click.</p>
-                    <p>Current Level: <strong id="upgradePower">1</strong></p>
-                    <p>Cost: <strong id="upgradeCost">$50</strong></p>
-                    <button id="upgradeButton" class="primary-button">Upgrade Power</button>
+                    <p>Level: <strong id="powerLevel">1</strong></p>
+                    <p>Blocks per click: <strong id="powerAmount">1</strong></p>
+                    <p>Cost: <strong id="powerCost">$50</strong></p>
+                    <button id="powerButton" class="primary-button">Upgrade Power</button>
                 </div>
 
                 <div class="panel upgrade-card">
-                    <h3>⚡ Mining Speed</h3>
+                    <h3>Mining Speed</h3>
                     <p>Reduce the cooldown between mining clicks.</p>
-                    <p>Speed Level: <strong id="speedLevel">1</strong></p>
-                    <p>Cooldown: <strong id="currentCooldown">1.2s</strong></p>
+                    <p>Level: <strong id="speedLevel">1</strong></p>
+                    <p>Cooldown: <strong id="speedCooldown">1.2s</strong></p>
                     <p>Cost: <strong id="speedCost">$100</strong></p>
                     <button id="speedButton" class="primary-button">Upgrade Speed</button>
+                </div>
+
+                <div class="panel upgrade-card">
+                    <h3>Ore Luck</h3>
+                    <p>Increase your chances of finding rare ores.</p>
+                    <p>Level: <strong id="luckLevel">0</strong></p>
+                    <p>Bonus: <strong id="luckBonus">0%</strong></p>
+                    <p>Cost: <strong id="luckCost">$250</strong></p>
+                    <button id="luckButton" class="primary-button">Upgrade Luck</button>
+                </div>
+
+                <div class="panel upgrade-card">
+                    <h3>Ore Value</h3>
+                    <p>Sell every ore for more money.</p>
+                    <p>Level: <strong id="sellLevel">0</strong></p>
+                    <p>Bonus: <strong id="sellBonus">0%</strong></p>
+                    <p>Cost: <strong id="sellCost">$300</strong></p>
+                    <button id="sellUpgradeButton" class="primary-button">Upgrade Value</button>
+                </div>
+
+                <div class="panel upgrade-card">
+                    <h3>Double Drops</h3>
+                    <p>Chance to receive an extra copy of every ore you mine.</p>
+                    <p>Level: <strong id="doubleLevel">0</strong></p>
+                    <p>Chance: <strong id="doubleChance">0%</strong></p>
+                    <p>Cost: <strong id="doubleCost">$500</strong></p>
+                    <button id="doubleButton" class="primary-button">Upgrade Double Drops</button>
                 </div>
             </div>
         </section>
@@ -131,10 +161,11 @@
 
         <section class="page" id="rebirth">
             <div class="panel rebirth-panel">
-                <h2>♻️ Rebirth</h2>
-                <p>Restart your mining progress in exchange for a permanent money multiplier.</p>
+                <h2>Rebirth</h2>
+                <p>Reset your progress to gain a permanent money multiplier.</p>
                 <div class="rebirth-stats">
                     <p>Rebirths: <strong id="rebirthCount">0</strong></p>
+                    <p>Money Multiplier: <strong id="rebirthMultiplier">x1</strong></p>
                     <p>Required Money: <strong id="rebirthRequirement">$1,000,000</strong></p>
                     <p id="rebirthStatus">Reach the required money to rebirth.</p>
                 </div>
